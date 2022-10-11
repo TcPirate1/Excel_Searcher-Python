@@ -4,11 +4,13 @@ from path import RootPath
 
 def find_specific_cell():
     for row in range(1, currentSheet.max_row + 1):
-        for column in range(1,703): #Rows
-            column = num_hash(column)
-            cell_name = "{}{}".format(column, row)
+        for column in range(1,703): #columns
+            cell1Column = num_hash(column)
+            cell2Column = num_hash(column + 1)
+            cell_name = "{}{}".format(cell1Column, row)
+            cell_name2 = "{}{}".format(cell2Column, row)
             if currentSheet[cell_name.upper()].value == Card_Name: #Case sensitive
-                print("{} is at {}".format(currentSheet[cell_name].value, cell_name))
+                print("{} {} is at {}".format(currentSheet[cell_name2].value, currentSheet[cell_name].value, cell_name))
 
 def num_hash(num):
     if num < 26:
