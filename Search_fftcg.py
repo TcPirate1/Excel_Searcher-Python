@@ -9,7 +9,7 @@ def find_specific_cell():
             cell2Column = num_hash(column + 1)
             cell_name = "{}{}".format(cell1Column, row)
             cell_name2 = "{}{}".format(cell2Column, row)
-            if currentSheet[cell_name.upper()].value == Card_Name: #Case sensitive
+            if currentSheet[cell_name].value == Card_Code: #Case sensitive
                 print("{} {} is at {}".format(currentSheet[cell_name2].value, currentSheet[cell_name].value, cell_name))
 
 def num_hash(num):
@@ -29,7 +29,7 @@ def num_hash(num):
 relativePath = os.path.join(RootPath, "FFTCG.xlsx")
 File = openpyxl.load_workbook(relativePath, data_only=True)
 SheetNames = File.sheetnames
-Card_Name = input("Enter the code of the card you wish to find: ").upper() #Is not effective with card names
+Card_Code = input("Enter the code of the card you wish to find: ").title() #Is not effective with card names
 alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 #Entry point
@@ -41,6 +41,6 @@ for sheet in SheetNames:
 choice = input("Do you want to find another card? (Y = yes, N = no)")
 
 while choice == "Y":
-    Card_Name
+    Card_Code
 else:
     print("Thank you for using this python script!")
