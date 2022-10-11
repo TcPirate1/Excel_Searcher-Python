@@ -1,5 +1,5 @@
 import os
 
-RootPath = os.path.realpath(os.path.join(os.path.dirname(__file__),"..","..",".."))
+RootPath = os.path.join(os.environ['USERPROFILE'], 'Desktop')
 
 # print (RootPath)
