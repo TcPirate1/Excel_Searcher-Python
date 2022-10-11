@@ -29,7 +29,7 @@ def num_hash(num):
 relativePath = os.path.join(RootPath, "FFTCG.xlsx")
 File = openpyxl.load_workbook(relativePath, data_only=True)
 SheetNames = File.sheetnames
-Card_Name = input("Enter the code of the card you wish to find: ").upper() #Does work with card names
+Card_Name = input("Enter the code of the card you wish to find: ").upper() #Is not effective with card names
 alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 #Entry point
