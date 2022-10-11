@@ -37,3 +37,10 @@ for sheet in SheetNames:
     print("\nCurrent sheet is: {}".format(sheet) + "\n")
     currentSheet = File[sheet]
     find_specific_cell()
+
+choice = input("Do you want to find another card? (Y = yes, N = no)")
+
+while choice == "Y":
+    Card_Name
+else:
+    print("Thank you for using this python script!")
