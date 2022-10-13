@@ -62,7 +62,7 @@ def inputChoice():
         find_cardBYcode()
     if (codeORname == "N"):
         find_cardBYname()
-    else:
+    if (codeORname != "Y" or "N"):
         print("Not valid input")
 
 #Variables / Entry
