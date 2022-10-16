@@ -1,11 +1,11 @@
-from Find_Card import find_cardBYcode, find_cardBYname
+from Find_Card import find_card
 
 def inputChoice():
     codeORname = input("Press \"C\" if you want to find card by its code or \"N\" if you want to search by its name: ").upper()
     if (codeORname == "C"):
-        find_cardBYcode()
+        find_card(codeORname)
     if (codeORname == "N"):
-        find_cardBYname()
+        find_card(codeORname)
 
 #Variables / Entry
 print("Welcome to the FFTCG spreadsheet searcher!\n")

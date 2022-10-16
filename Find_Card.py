@@ -1,25 +1,26 @@
 from ColumnConverter import num_hash
 from path import SheetNames, File
 
-def find_cardBYname():
-    Card_Name = input("Enter the name of the card you wish to find: ").title() # Search result is Case sensitive
+def find_card(codeORname):
+    if (codeORname == "N"):
+        Card_Name = input("Enter the name of the card you wish to find: ").title() # Search result is Case sensitive
 
-    for sheet in SheetNames:
-        print("\nCurrent sheet is: {}".format(sheet) + "\n")
-        currentSheet = File[sheet]
-        find_cardName(currentSheet, Card_Name)
+        for sheet in SheetNames:
+            print("\nCurrent sheet is: {}".format(sheet) + "\n")
+            currentSheet = File[sheet]
+            find_cardName(currentSheet, Card_Name)
 
-def find_cardBYcode():
-    Card_Code = input("Enter the name of the card you wish to find: ").title() # Search result is Case sensitive
+    if (codeORname == "C"):
+        Card_Code = input("Enter the name of the card you wish to find: ").title() # Search result is Case sensitive
 
-    for sheet in SheetNames:
-        print("\nCurrent sheet is: {}".format(sheet) + "\n")
-        currentSheet = File[sheet]
-        find_cardCode(currentSheet, Card_Code)
+        for sheet in SheetNames:
+            print("\nCurrent sheet is: {}".format(sheet) + "\n")
+            currentSheet = File[sheet]
+            find_cardCode(currentSheet, Card_Code)
 
 def find_cardName(currentSheet, Card_Name):
     for row in range(1, currentSheet.max_row + 1):
-        for column in range(1,703): #columns
+        for column in range(1,currentSheet.max_column + 1): #columns
             cell1Column = num_hash(column)
             cell2Column = num_hash(column - 1)
             cell3Column = num_hash(column + 1)
@@ -31,7 +32,7 @@ def find_cardName(currentSheet, Card_Name):
 
 def find_cardCode(currentSheet, Card_Code):
     for row in range(1, currentSheet.max_row + 1):
-        for column in range(1,703): #columns
+        for column in range(1,currentSheet.max_column + 1): #columns
             cell1Column = num_hash(column)
             cell2Column = num_hash(column + 1)
             cell3Column = num_hash(column + 2)
