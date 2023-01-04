@@ -3,7 +3,7 @@ from path import SheetNames, File
 
 def find_card(codeORname):
     if (codeORname == "N"):
-        Card_Name = input("Enter the name of the card you wish to find: ").title() # Search result is Case sensitive
+        Card_Name = input("Enter the name of the card you wish to find: ").upper() # Search result is Case sensitive 
 
         for sheet in SheetNames:
             print("\nCurrent sheet is: {}".format(sheet) + "\n")
@@ -11,7 +11,7 @@ def find_card(codeORname):
             find_cardName(currentSheet, Card_Name)
 
     if (codeORname == "C"):
-        Card_Code = input("Enter the name of the card you wish to find: ").title() # Search result is Case sensitive
+        Card_Code = input("Enter the name of the card you wish to find: ").upper() # Search result is Case sensitive
 
         for sheet in SheetNames:
             print("\nCurrent sheet is: {}".format(sheet) + "\n")
