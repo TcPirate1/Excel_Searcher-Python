@@ -1,6 +1,6 @@
 from Find_Card import find_card
-# from path import File
-# import os
+from path import File
+import os
 
 def inputChoice():
     userContinue = True
@@ -13,13 +13,13 @@ def inputChoice():
             cardFinder()
             doSomethingElse(userContinue)
             break
-        # if (option == "A"):
-        #     new_worksheet = input("What do you want to name this worksheet?\n\nNote: If you don't enter anything it will default to sheet + number.\n")
-        #     File.create_sheet(f"{new_worksheet}")
-        #     File.save(os.path.join(os.path.expanduser('~'), 'Documents', 'Spreadsheets' , 'FFTCG_automated.xlsx'))
-        #     print("Worksheet created.")
-        #     doSomethingElse(userContinue)
-        #     break
+        if (option == "A"):
+            new_worksheet = input("What do you want to name this worksheet?\n\nNote: If you don't enter anything it will default to sheet + number.\n")
+            File.create_sheet(f"{new_worksheet}")
+            File.save(os.path.join(os.path.expanduser('~'), 'Documents', 'Spreadsheets' , 'FFTCG_automated.xlsx'))
+            print("Worksheet created.")
+            doSomethingElse(userContinue)
+            break
 
 def doSomethingElse(userContinue):
     userinput = input("\nWould you like to do something else? (Y = yes, N = no)\n").upper()
