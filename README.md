@@ -23,5 +23,5 @@ https://user-images.githubusercontent.com/88120195/195274786-25d1a6a8-7df9-4e22-
 https://user-images.githubusercontent.com/88120195/195274900-072192e0-6981-4ae7-b2c8-2b9725e4d3fe.mp4
 
 ## Goals
-- Make it into an exe so that it is portable and doesn't need command-line to run.
+- Make it into a terminal script so that it is portable and doesn't need command-line to run.
 - Record videos for it running on Linux and upload it to this readme.
