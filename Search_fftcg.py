@@ -5,7 +5,7 @@ import os
 def inputChoice():
     userContinue = True
     while True:
-        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\n").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\n").upper()
         if (option == "E"):
             print("The program will now close.\nThank you for using this Python script!")
             break
@@ -20,6 +20,17 @@ def inputChoice():
             print("Worksheet created.")
             doSomethingElse(userContinue)
             break
+        if (option == "W"):
+            ChangeActiveWorksheet = input("Would you like to change the spreadsheet to work on? (Y = yes, N = no or V to view the current worksheet)\n").upper()
+            match ChangeActiveWorksheet:
+                case "V":
+                    print(f"Current sheet is: {File.active}")
+                case "Y" | "YES":
+                    ActiveWorksheet = input("Which sheet would you like to work on?\n")
+                    File.active = File[ActiveWorksheet]
+                    print(f"Current sheet has been changed to: {File.active}")
+                # case "N" | "NO":
+                #     break
 
 def doSomethingElse(userContinue):
     userinput = input("\nWould you like to do something else? (Y = yes, N = no)\n").upper()
