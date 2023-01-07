@@ -2,7 +2,7 @@
 
 This is a Python code that I have written to search through my excel spreadsheet (that I use to keep track of my card collection).
 
-The script runs on both Windows and Linux OS but relies on the file being in Documents/Spreadsheets/ directory. It also needs the file to be called FFTCG.xlsx but is possible to change the name if needed.
+The script runs on both Windows and Linux OS but relies on the file being in Documents/Spreadsheets/ directory. It also needs the file to be called FFTCG_automated.xlsx but is possible to change the name if needed.
 
 ## How to use?
 - Make sure the excel file is in the Documents/Spreadsheets/ directory and named FFTCG_automated.xlsx
