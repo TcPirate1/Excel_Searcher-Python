@@ -1,4 +1,5 @@
 from Find_Card import find_card
+from ColumnConverter import num_hash
 from path import File
 import os
 
@@ -21,16 +22,28 @@ def inputChoice():
             doSomethingElse(userContinue)
             break
         if (option == "W"):
+            ActiveWorksheet = File.active
+            print(ActiveWorksheet)
             ChangeActiveWorksheet = input("Would you like to change the spreadsheet to work on? (Y = yes, N = no or V to view the current worksheet)\n").upper()
             match ChangeActiveWorksheet:
                 case "V":
-                    print(f"Current sheet is: {File.active}")
+                    print(f"Current sheet is: {ActiveWorksheet}")
                 case "Y" | "YES":
-                    ActiveWorksheet = input("Which sheet would you like to work on?\n")
+                    ActiveWorksheet = input("Which sheet would you like to work on?\n").capitalize()
                     File.active = File[ActiveWorksheet]
-                    print(f"Current sheet has been changed to: {File.active}")
+                    print(f"Current sheet has been changed to: {ActiveWorksheet}")
                 # case "N" | "NO":
                 #     break
+            print("Checking for empty cells in this sheet...\n")
+            for row in range(2, ActiveWorksheet.max_row + 1):
+                for column in range(2, ActiveWorksheet.max_column + 1):
+                    columnLetter = num_hash(column)
+                    searchTarget = f"{columnLetter}{row}"
+                    left = f"{columnLetter}{row - 1}"
+                    right = f"{columnLetter}{row + 1}"
+                    print(ActiveWorksheet[left].value)
+                    # if (ActiveWorksheet[searchTarget].value == None and ActiveWorksheet[left].value == None and ActiveWorksheet[right].value == None):
+                    #     print(f"{searchTarget}")
 
 def doSomethingElse(userContinue):
     userinput = input("\nWould you like to do something else? (Y = yes, N = no)\n").upper()
