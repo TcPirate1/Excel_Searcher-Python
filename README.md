@@ -13,11 +13,14 @@ The script runs on both Windows and Linux OS but relies on the file being in Doc
 
 Open the .bat (on Windows) or .desktop file (on Linux) to run the [script](#.bat,-.desktop-and-.sh-file-contents).
 
-## Video examples (for Windows)
-
-
+## Video (for Windows)
 
 https://user-images.githubusercontent.com/88120195/211103204-5766d9cc-09d3-4c73-96e5-893844f4c894.mp4
+
+## Video (for Linux)
+
+https://user-images.githubusercontent.com/88120195/211176332-3a26de9b-ffa8-4e1e-8f30-5b005fe26070.mp4
+
 
 
 ## .bat, .desktop and .sh file contents
@@ -52,4 +55,5 @@ deactivate
 bash`
 
 ## Goals
+- Able to write to empty cells of a given worksheet.
 - Turn the script into an executable with a GUI.
