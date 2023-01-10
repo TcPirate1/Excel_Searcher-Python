@@ -1,5 +1,5 @@
 from Find_Card import find_card
-from ColumnConverter import num_hash
+from EmptyCells import emptyCells
 from path import File
 import os
 
@@ -33,15 +33,7 @@ def inputChoice():
                     File.active = File[ActiveWorksheet]
                     print(f"Current sheet has been changed to: {ActiveWorksheet}")
 
-            print("Checking for empty cells in this sheet...\n")
-            for row in range(1, ActiveWorksheet.max_row + 1):
-                for column in range(1, ActiveWorksheet.max_column + 1):
-                    columnLetter = num_hash(column)
-                    top = f"{columnLetter}1"
-                    searchTarget = f"{columnLetter}{row}"
-                    if (ActiveWorksheet[searchTarget].value is None and ActiveWorksheet[top].value != "Notes" and ActiveWorksheet[top].value != "Card Attributes"):
-                        print(ActiveWorksheet[top].value)
-                        print(searchTarget)
+            emptyCells(ActiveWorksheet)
 
 def doSomethingElse(userContinue):
     userinput = input("\nWould you like to do something else? (Y = yes, N = no)\n").upper()
