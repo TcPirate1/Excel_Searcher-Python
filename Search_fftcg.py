@@ -32,18 +32,16 @@ def inputChoice():
                     ActiveWorksheet = input("Which sheet would you like to work on?\n").capitalize()
                     File.active = File[ActiveWorksheet]
                     print(f"Current sheet has been changed to: {ActiveWorksheet}")
-                # case "N" | "NO":
-                #     break
+
             print("Checking for empty cells in this sheet...\n")
-            for row in range(2, ActiveWorksheet.max_row + 1):
-                for column in range(2, ActiveWorksheet.max_column + 1):
+            for row in range(1, ActiveWorksheet.max_row + 1):
+                for column in range(1, ActiveWorksheet.max_column + 1):
                     columnLetter = num_hash(column)
+                    top = f"{columnLetter}1"
                     searchTarget = f"{columnLetter}{row}"
-                    left = f"{columnLetter}{row - 1}"
-                    right = f"{columnLetter}{row + 1}"
-                    print(ActiveWorksheet[left].value)
-                    # if (ActiveWorksheet[searchTarget].value == None and ActiveWorksheet[left].value == None and ActiveWorksheet[right].value == None):
-                    #     print(f"{searchTarget}")
+                    if (ActiveWorksheet[searchTarget].value is None and ActiveWorksheet[top].value != "Notes" and ActiveWorksheet[top].value != "Card Attributes"):
+                        print(ActiveWorksheet[top].value)
+                        print(searchTarget)
 
 def doSomethingElse(userContinue):
     userinput = input("\nWould you like to do something else? (Y = yes, N = no)\n").upper()
