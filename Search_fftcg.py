@@ -1,30 +1,28 @@
 from Find_Card import find_card
-from ColumnConverter import num_hash
 from EmptyCells import emptyCells
-from path import File
+from path import File, Path
 import os
 
 def inputChoice():
     userContinue = True
     while True:
-        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"W\" and \"V\" will show empty cells in the \"Code\" column.\n\n").upper()
         if (option == "E"):
             print("The program will now close.\nThank you for using this Python script!")
             break
         if (option == "S"):
             cardFinder()
-            doSomethingElse(userContinue)
-            break
+            print(userContinue)
         if (option == "A"):
             new_worksheet = input("What do you want to name this worksheet?\n\nNote: If you don't enter anything it will default to sheet + number.\n")
             File.create_sheet(f"{new_worksheet}")
-            File.save(os.path.join(os.path.expanduser('~'), 'Documents', 'Spreadsheets' , 'FFTCG_automated.xlsx'))
+            File.save(Path)
             print("Worksheet created.")
-            doSomethingElse(userContinue)
-            break
         if (option == "V"):
             currentWorksheet = File.active
-            print(f"Current sheet is: {currentWorksheet}")
+            NoCellValue = input(f"Current sheet is: {currentWorksheet}\n\nWould you like to see the empty cells in {currentWorksheet}?\n").upper()
+            if (NoCellValue == "Y" or "YES"):
+                emptyCells(currentWorksheet)
         if (option == "W"):
             print(f"Current sheet is: {File.active}")
             ChangeActiveWorksheet = input("Would you like to change the spreadsheet to work on? (Y = yes, N = no)\n").upper()
@@ -34,22 +32,12 @@ def inputChoice():
                     File.active = File[ActiveWorksheet]
                     print(f"Current sheet has been changed to: {ActiveWorksheet}")
 
-            ActiveWorksheet = File.active
+            ActiveWorksheet = File.active #Needs to be here so that the variable stays as a worksheet object and not change to a str when we change worksheets.
             emptyCells(ActiveWorksheet)
             # selected_cell = input("Choose the cell you want to write to:\n").upper()
             # change_value = input("Enter what you want to put in this cell:\n").upper()
-            # ActiveWorksheet[selected_cell] = change_value
-            # print(ActiveWorksheet[selected_cell])
-
-
-def doSomethingElse(userContinue):
-    userinput = input("\nWould you like to do something else? (Y = yes, N = no)\n").upper()
-    match userinput:
-        case "N" | "NO":
-            userContinue == False
-        case "Y" | "YES":
-            userContinue == True
-    return userContinue
+            # ActiveWorksheet[selected_cell].value = change_value
+            # File.save(Path)
 
 def cardFinder():
     invalid_input = True
