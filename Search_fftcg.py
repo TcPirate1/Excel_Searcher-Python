@@ -34,9 +34,17 @@ def inputChoice():
 
             ActiveWorksheet = File.active #Needs to be here so that the variable stays as a worksheet object and not change to a str when we change worksheets.
             emptyCells(ActiveWorksheet)
-            # selected_cell = input("Choose the cell you want to write to:\n").upper()
-            # change_value = input("Enter what you want to put in this cell:\n").upper()
-            # ActiveWorksheet[selected_cell].value = change_value
+            print("Reminder, these cells are under the \"Code\" column!")
+            selected_cell = input("Choose the cell you want to write to:\n").upper()
+            selected_cellRight1 = ActiveWorksheet[selected_cell].offset(row= 0, column = 1).coordinate
+            selected_cellRight2 = ActiveWorksheet[selected_cell].offset(row= 0, column = 2).coordinate
+            change_value = input(f"Enter what you want to put in cell {selected_cell}:\n").upper()
+            change_valueRight1 = input(f"Enter what you want to put in this cell {selected_cellRight1}:\n").upper()
+            change_valueRight2 = input(f"Enter what you want to put in this cell {selected_cellRight2}:\n").upper()
+            ActiveWorksheet[selected_cell].value = change_value
+            ActiveWorksheet[selected_cellRight1].value = change_valueRight1
+            ActiveWorksheet[selected_cellRight2].value = change_valueRight2
+            print(f"{ActiveWorksheet[selected_cell].value}, {ActiveWorksheet[selected_cellRight1].value}, {ActiveWorksheet[selected_cellRight2].value}")
             # File.save(Path)
 
 def cardFinder():
