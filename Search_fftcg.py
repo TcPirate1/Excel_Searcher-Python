@@ -48,9 +48,9 @@ def inputChoice():
             # File.save(Path)
         if (option == "C"):
             ActiveWorksheet = File.active
+            print(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? ((Y = yes, N = no)\n")
             print("What sheet do you want to change?")
             print("What cell do you want to change?")
-            print(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? ((Y = yes, N = no)\n")
 
 
 def cardFinder():
