@@ -6,7 +6,7 @@ import os
 def inputChoice():
     userContinue = True
     while True:
-        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"W\" and \"V\" will show empty cells in the \"Code\" column.\n\n").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"W\" and \"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell.\n\n").upper()
         if (option == "E"):
             print("The program will now close.\nThank you for using this Python script!")
             break
@@ -46,6 +46,12 @@ def inputChoice():
             ActiveWorksheet[selected_cellRight2].value = change_valueRight2
             print(f"{ActiveWorksheet[selected_cell].value}, {ActiveWorksheet[selected_cellRight1].value}, {ActiveWorksheet[selected_cellRight2].value}")
             # File.save(Path)
+        if (option == "C"):
+            ActiveWorksheet = File.active
+            print("What sheet do you want to change?")
+            print("What cell do you want to change?")
+            print(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? ((Y = yes, N = no)\n")
+
 
 def cardFinder():
     invalid_input = True
