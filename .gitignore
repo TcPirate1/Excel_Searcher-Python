@@ -2,3 +2,5 @@ __pycache__/
 Python_Excel_Video
 env/
 .vscode/
+*.bat
+*.sh
