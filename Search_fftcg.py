@@ -1,12 +1,11 @@
 from Find_Card import find_card
-from EmptyCells import emptyCells
+from CellFormulas import emptyCells, fillEmptyCell
 from path import File, Path
-import os
 
 def inputChoice():
     userContinue = True
     while True:
-        option = input("\nPress one of the following keys to execute their respective functions.\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"W\" and \"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell.\n\n").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"W\" and \"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell.\n\n").upper()
         if (option == "E"):
             print("The program will now close.\nThank you for using this Python script!")
             break
@@ -29,29 +28,31 @@ def inputChoice():
             match ChangeActiveWorksheet:
                 case "Y" | "YES":
                     ActiveWorksheet = input("Which sheet would you like to work on?\n").capitalize()
-                    File.active = File[ActiveWorksheet]
-                    print(f"Current sheet has been changed to: {ActiveWorksheet}")
+                    changeSheet(ActiveWorksheet)
 
             ActiveWorksheet = File.active #Needs to be here so that the variable stays as a worksheet object and not change to a str when we change worksheets.
             emptyCells(ActiveWorksheet)
-            print("Reminder, these cells are under the \"Code\" column!")
-            selected_cell = input("Choose the cell you want to write to:\n").upper()
-            selected_cellRight1 = ActiveWorksheet[selected_cell].offset(row= 0, column = 1).coordinate
-            selected_cellRight2 = ActiveWorksheet[selected_cell].offset(row= 0, column = 2).coordinate
-            change_value = input(f"Enter what you want to put in cell {selected_cell}:\n").upper()
-            change_valueRight1 = input(f"Enter what you want to put in this cell {selected_cellRight1}:\n").upper()
-            change_valueRight2 = input(f"Enter what you want to put in this cell {selected_cellRight2}:\n").upper()
-            ActiveWorksheet[selected_cell].value = change_value
-            ActiveWorksheet[selected_cellRight1].value = change_valueRight1
-            ActiveWorksheet[selected_cellRight2].value = change_valueRight2
-            print(f"{ActiveWorksheet[selected_cell].value}, {ActiveWorksheet[selected_cellRight1].value}, {ActiveWorksheet[selected_cellRight2].value}")
-            # File.save(Path)
+            fillEmptyCell(ActiveWorksheet)
+            
         if (option == "C"):
             ActiveWorksheet = File.active
-            print(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? ((Y = yes, N = no)\n")
-            print("What sheet do you want to change?")
-            print("What cell do you want to change?")
+            ChangeActiveWorksheet = input(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? ((Y = yes, N = no)\n")
+            match ChangeActiveWorksheet:
+                case "Y" | "YES":
+                    ActiveWorksheet = input("What sheet do you want to change to?\n").capitalize()
+                    changeSheet(ActiveWorksheet)
 
+            CellValue = input("Enter the cell you want to change the value of: ")
+            print(f"Value at this cell is: {ActiveWorksheet[CellValue].value}")
+            ChangeCellValue = input("Enter what you want to put in this cell: ")
+            ActiveWorksheet[CellValue].value = ChangeCellValue
+            print(f"{ActiveWorksheet[CellValue]} has been changed to {ChangeCellValue}")
+            # File.save(Path)
+
+def changeSheet(ActiveWorksheet):
+    File.active = File[ActiveWorksheet]
+    print(f"Current sheet has been changed to: {ActiveWorksheet}")
+    return ActiveWorksheet
 
 def cardFinder():
     invalid_input = True
