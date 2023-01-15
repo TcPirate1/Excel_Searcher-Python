@@ -55,5 +55,5 @@ deactivate
 bash`
 
 ## Goals
-- Able to write to empty cells of a given worksheet.
 - Turn the script into an executable with a GUI.
+- Use Polymorphism to shorten code length
