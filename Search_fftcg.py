@@ -4,14 +4,13 @@ from path import File, Path
 
 def inputChoice():
     userContinue = True
-    while True:
+    while userContinue == True:
         option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"W\" to work on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"W\" and \"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell.\n\n").upper()
         if (option == "E"):
             print("The program will now close.\nThank you for using this Python script!")
             break
         if (option == "S"):
             cardFinder()
-            print(userContinue)
         if (option == "A"):
             new_worksheet = input("What do you want to name this worksheet?\n\nNote: If you don't enter anything it will default to sheet + number.\n")
             File.create_sheet(f"{new_worksheet}")
@@ -71,15 +70,14 @@ def cardFinder():
         match codeORname:
             case "C" | "N":
                 find_card(codeORname)
-                invalid_input == False
+                invalid_input = False
                 findAnotherCard()
-                break
+                return invalid_input
             case "E":
                 print("Exiting search.\n")
                 break
             case _:
                 print("The input is invalid, please enter \"C\", \"N\" or \"E\".")
-                break
 
 def findAnotherCard():
     choice = True
@@ -87,13 +85,13 @@ def findAnotherCard():
         choice = input("\nDo you want to find another card? (Y = yes, N = no)\n").upper()
         match choice:
             case "Y":
-                choice == True
+                choice = True
                 cardFinder()
-                break
+                return choice
             case "N":
-                choice == False
+                choice = False
                 print("Exiting search.\n")
-                break
+                return choice
 
 #Variables / Entry
 print("Welcome to the FFTCG spreadsheet searcher!\n\nNote: This spreadsheet doesn't contain cards from opus 7 or 14 because all of the Commons and Rares were obtained from these sets.")
