@@ -1,5 +1,5 @@
 from path import SheetNames, File
-from card_location import find_cardLocation
+from CellFormulas import find_cardLocation
 
 def find_card(codeORname):
     if (codeORname == "N"):

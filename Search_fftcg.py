@@ -84,7 +84,7 @@ def cardFinder():
 def findAnotherCard():
     choice = True
     while True:
-        choice = input("Do you want to find another card? (Y = yes, N = no)\n").upper()
+        choice = input("\nDo you want to find another card? (Y = yes, N = no)\n").upper()
         match choice:
             case "Y":
                 choice == True
