@@ -1,4 +1,5 @@
 from ColumnConverter import num_hash
+from path import File, Path
 import re
 
 def find_cardLocation(currentSheet, Card):
@@ -42,4 +43,4 @@ def fillEmptyCell(ActiveWorksheet):
     ActiveWorksheet[selected_cellRight1].value = change_valueRight1
     ActiveWorksheet[selected_cellRight2].value = change_valueRight2
     print(f"{ActiveWorksheet[selected_cell].value}, {ActiveWorksheet[selected_cellRight1].value}, {ActiveWorksheet[selected_cellRight2].value}")
-    # File.save(Path)
+    File.save(Path)
