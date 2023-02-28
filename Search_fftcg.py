@@ -1,6 +1,5 @@
 from Find_Card import find_card
-from CellFormulas import emptyCells, fillEmptyCell
-from path import File, Path
+from path import File
 
 def inputChoice():
     userContinue = True
