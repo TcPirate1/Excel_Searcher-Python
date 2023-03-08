@@ -55,5 +55,4 @@ deactivate
 bash`
 
 ## Goals
-- Turn the script into an executable with a GUI.
 - Use Polymorphism to shorten code length
