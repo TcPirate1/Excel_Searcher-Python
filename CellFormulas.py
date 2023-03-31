@@ -1,6 +1,7 @@
 from ColumnConverter import num_hash
 from path import File, Path
 import re
+from openpyxl.styles import Font, Alignment, NamedStyle
 
 def find_cardLocation(currentSheet, Card):
     cardNameRegex = re.match('^\d{1,2}-\d{3}[CRHLS]+$', Card)
@@ -34,14 +35,29 @@ def emptyCells(ActiveWorksheet):
 
 def fillEmptyCell(ActiveWorksheet):
     print("Reminder, empty cells are under the \"Code\" column!")
+    # Create NamedStyle for reusability
+    cell_format = NamedStyle(name = 'apply_format')
+    cell_format.font = Font(bold=True)
+    cell_format.alignment = Alignment(horizontal='center')
+    # Input location of cell and get the 2 cells next to them
     selected_cell = input("Choose the cell you want to write to:\n").upper()
     selected_cellRight1 = ActiveWorksheet[selected_cell].offset(row= 0, column = 1).coordinate
     selected_cellRight2 = ActiveWorksheet[selected_cell].offset(row= 0, column = 2).coordinate
+    # Input value for cell
     change_value = input(f"Enter what you want to put in cell {selected_cell}:\n").upper()
     change_valueRight1 = input(f"Enter what you want to put in this cell {selected_cellRight1}:\n").upper()
     change_valueRight2 = input(f"Enter what you want to put in this cell {selected_cellRight2}:\n").upper()
+    #Assign new value
     ActiveWorksheet[selected_cell].value = change_value
     ActiveWorksheet[selected_cellRight1].value = change_valueRight1
     ActiveWorksheet[selected_cellRight2].value = change_valueRight2
-    print(f"{ActiveWorksheet[selected_cell].value}, {ActiveWorksheet[selected_cellRight1].value}, {ActiveWorksheet[selected_cellRight2].value}")
+    #Apply style to cell after knowing where the cell is
+    ActiveWorksheet[selected_cell].style = 'apply_format'
+    ActiveWorksheet[selected_cellRight1].style = 'apply_format'
+    ActiveWorksheet[selected_cellRight2].style = 'apply_format'
+    # Sucessful output
+    print(f"\"{ActiveWorksheet[selected_cell].value}\", \"{ActiveWorksheet[selected_cellRight1].value}\", \"{ActiveWorksheet[selected_cellRight2].value}\" has successfully been inputted into the spreadsheet.")
     File.save(Path)
+
+def reapply_conditional_formatting(): ##Reapply conditional formatting rules after deleting values
+    pass
