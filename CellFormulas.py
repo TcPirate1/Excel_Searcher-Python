@@ -52,6 +52,7 @@ def fillEmptyCell(ActiveWorksheet):
     ActiveWorksheet[selected_cellRight1].value = change_valueRight1
     ActiveWorksheet[selected_cellRight2].value = change_valueRight2
     #Apply style to cell after knowing where the cell is
+    # Problem might be because the style is not assigned on this laptop so write a checker to add style if it doesn't exist
     ActiveWorksheet[selected_cell].style = 'apply_format'
     ActiveWorksheet[selected_cellRight1].style = 'apply_format'
     ActiveWorksheet[selected_cellRight2].style = 'apply_format'
