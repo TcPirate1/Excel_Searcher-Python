@@ -3,7 +3,10 @@ from path import File, Path
 import re
 from openpyxl.styles import Font, Alignment, NamedStyle
 
-def find_cardLocation(currentSheet, Card):
+def getInput(msg):
+    return input(msg).upper()
+
+def find_cardLocation(currentSheet, Card, searchType):
     cardNameRegex = re.match('^\d{1,2}-\d{3}[CRHLS]+$', Card)
     for row in range(1, currentSheet.max_row + 1):
         for column in range(1,currentSheet.max_column + 1): #columns
@@ -17,10 +20,10 @@ def find_cardLocation(currentSheet, Card):
             right_cell = f"{rightColumn}{row}"
             right_2Cells = f"{secondRightColumn}{row}"
 
-            if (currentSheet[searchTarget].value == Card and cardNameRegex is None): #Can't manipulate the cell value so can't use upper(), title() etc...
+            if (currentSheet[searchTarget].value == Card and cardNameRegex is None and searchType == "name"): #Can't manipulate the cell value so can't use upper(), title() etc...
                 print(f"There are {currentSheet[right_cell].value} {currentSheet[left_cell].value} {currentSheet[searchTarget].value}(s). It is in the {currentSheet[pile].value} pile at Cell {searchTarget}.")
 
-            if (currentSheet[searchTarget].value == Card and cardNameRegex is not None): #re.match returns None if no matches are found
+            if (currentSheet[searchTarget].value == Card and cardNameRegex is not None and searchType == "code"): #re.match returns None if no matches are found
                 print(f"There are {currentSheet[right_2Cells].value} {currentSheet[searchTarget].value} {currentSheet[right_cell].value}(s) at Cell {searchTarget}.")
 
 def emptyCells(ActiveWorksheet):
@@ -34,19 +37,19 @@ def emptyCells(ActiveWorksheet):
                 print(searchTarget)
 
 def fillEmptyCell(ActiveWorksheet):
-    print("Reminder, empty cells are under the \"Code\" column!")
+    print("Reminder, empty cells displayed are under the \"Code\" column!")
     # Create NamedStyle for reusability
     cell_format = NamedStyle(name = 'apply_format')
     cell_format.font = Font(bold=True)
     cell_format.alignment = Alignment(horizontal='center')
     # Input location of cell and get the 2 cells next to them
-    selected_cell = input("Choose the cell you want to write to:\n").upper()
+    selected_cell = getInput("Choose the cell you want to write to:\n")
     selected_cellRight1 = ActiveWorksheet[selected_cell].offset(row= 0, column = 1).coordinate
     selected_cellRight2 = ActiveWorksheet[selected_cell].offset(row= 0, column = 2).coordinate
     # Input value for cell
-    change_value = input(f"Enter what you want to put in cell {selected_cell}:\n").upper()
-    change_valueRight1 = input(f"Enter what you want to put in this cell {selected_cellRight1}:\n").upper()
-    change_valueRight2 = input(f"Enter what you want to put in this cell {selected_cellRight2}:\n").upper()
+    change_value = getInput(f"Enter what you want to put in cell {selected_cell}:\n")
+    change_valueRight1 = getInput(f"Enter what you want to put in this cell {selected_cellRight1}:\n")
+    change_valueRight2 = getInput(f"Enter what you want to put in this cell {selected_cellRight2}:\n")
     #Assign new value
     ActiveWorksheet[selected_cell].value = change_value
     ActiveWorksheet[selected_cellRight1].value = change_valueRight1

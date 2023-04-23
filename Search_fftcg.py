@@ -1,11 +1,11 @@
 from Find_Card import find_card
-from CellFormulas import emptyCells, fillEmptyCell
+from CellFormulas import emptyCells, fillEmptyCell, getInput
 from path import File, Path
 
 def inputChoice():
     userContinue = True
     while userContinue == True:
-        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\"V\" to view current selected worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\n").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\n").upper()
         match option:
             case "E":
                 print("The program will now close.\nThank you for using this Python script!")
@@ -22,7 +22,7 @@ def inputChoice():
 
             case "V":
                 currentWorksheet = File.active
-                NoCellValue = input(f"Current sheet is: {currentWorksheet}\n\nWould you like to see the empty cells in {currentWorksheet}? (Y = yes, N = no)\n").upper()
+                NoCellValue = getInput(f"Current sheet is: {currentWorksheet}\n\nWould you like to see the empty cells in {currentWorksheet}? (Y = yes, N = no)\n")
                 if (NoCellValue == "Y"):
                     emptyCells(currentWorksheet)
                 else:
@@ -30,7 +30,7 @@ def inputChoice():
             
             case "F":
                 print(f"Current sheet is: {File.active}")
-                ChangeActiveWorksheet = input("Would you like to change the spreadsheet to work on? (Y = yes, N = no)\n").upper()
+                ChangeActiveWorksheet = getInput("Would you like to change the spreadsheet to work on? (Y = yes, N = no)\n")
                 if ChangeActiveWorksheet == "Y":
                         ActiveWorksheet = input("Which sheet would you like to work on?\n").capitalize()
                         changeSheet(ActiveWorksheet)
@@ -41,25 +41,25 @@ def inputChoice():
             
             case "C":
                 ActiveWorksheet = File.active
-                ChangeActiveWorksheet = input(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? (Y = yes, N = no)\n").upper()
+                ChangeActiveWorksheet = getInput(f"You are on {ActiveWorksheet}.\nWould you like to change your worksheet? (Y = yes, N = no)\n")
                 if ChangeActiveWorksheet == "Y":
                         ActiveWorksheet = input("What sheet do you want to change to?\n").capitalize()
                         changeSheet(ActiveWorksheet)
                 else:
                     print(f"Sheet has not been changed. Currently still on {ActiveWorksheet}.")
 
-                CellOption = input("Do you want to delete a cell? (Y = yes, N = no)\n").upper()
+                CellOption = getInput("Do you want to delete a cell? (Y = yes, N = no)\n")
                 match CellOption:
                     case "Y":
-                        CellValue = input("Enter the cell you want to delete the value of: ")
-                        Confirmation = input(f"Are you sure you want to delete {ActiveWorksheet[CellValue].value}? (Y = yes, N = no)\n").upper()
+                        CellValue = getInput("Enter the cell you want to delete the value of: ")
+                        Confirmation = getInput(f"Are you sure you want to delete {ActiveWorksheet[CellValue].value}? (Y = yes, N = no)\n")
                         if (Confirmation == "Y"):
                             ActiveWorksheet[CellValue].value = None
                             File.save(Path)
                     case "N":
-                        CellValue = input("Enter the cell you want to change the value of: ")
+                        CellValue = getInput("Enter the cell you want to change the value of: ")
                         print(f"Value at this cell is: {ActiveWorksheet[CellValue].value}")
-                        ChangeCellValue = input("Enter what you want to put in this cell: ")
+                        ChangeCellValue = getInput("Enter what you want to put in this cell: ")
                         ActiveWorksheet[CellValue].value = ChangeCellValue
                         print(f"{ActiveWorksheet[CellValue]} has been changed to {ChangeCellValue}")
                         File.save(Path)
@@ -72,7 +72,7 @@ def changeSheet(ActiveWorksheet):
 def cardFinder():
     invalid_input = True
     while True:
-        codeORname = input("Press \"C\" if you want to find card by its code or \"N\" if you want to search by its name.\nPress \"E\" to exit.\n\nNone of the inputs are case sensitive.\n").upper()
+        codeORname = getInput("Press \"C\" if you want to find card by its code or \"N\" if you want to search by its name.\nPress \"E\" to exit.\n\nNone of the inputs are case sensitive.\n")
         
         match codeORname:
             case "C" | "N":
@@ -89,7 +89,7 @@ def cardFinder():
 def findAnotherCard():
     choice = True
     while True:
-        choice = input("\nDo you want to find another card? (Y = yes, N = no)\n").upper()
+        choice = getInput("\nDo you want to find another card? (Y = yes, N = no)\n")
         match choice:
             case "Y":
                 choice = True
