@@ -1,5 +1,5 @@
 from Find_Card import find_card
-from CellFormulas import emptyCells, fillEmptyCell, getInput
+from CellFormulas import emptyCells, fillEmptyCell, getInput, reapply_conditional_formatting
 from path import File, Path
 
 def inputChoice():
@@ -16,9 +16,10 @@ def inputChoice():
 
             case "A":
                 new_worksheet = input("What do you want to name this worksheet?\n\nNote: If you don't enter anything it will default to sheet + number.\n").capitalize()
+
                 File.create_sheet(f"{new_worksheet}")
                 File.save(Path)
-                print("Worksheet created.")
+                print("Worksheet created. Saved workbook.")
 
             case "V":
                 currentWorksheet = File.active
@@ -53,16 +54,31 @@ def inputChoice():
                     case "Y":
                         CellValue = getInput("Enter the cell you want to delete the value of: ")
                         Confirmation = getInput(f"Are you sure you want to delete {ActiveWorksheet[CellValue].value}? (Y = yes, N = no)\n")
+                        if (Confirmation == "N"):
+                            print("Deletion aborted. Returning to Menu Screen.")
                         if (Confirmation == "Y"):
                             ActiveWorksheet[CellValue].value = None
+                            print(f"{ActiveWorksheet[CellValue]} has been deleted.")
+                            # Insert function to reinstate conditional formatting
+
                             File.save(Path)
+                            print("File saved.")
                     case "N":
                         CellValue = getInput("Enter the cell you want to change the value of: ")
                         print(f"Value at this cell is: {ActiveWorksheet[CellValue].value}")
                         ChangeCellValue = getInput("Enter what you want to put in this cell: ")
                         ActiveWorksheet[CellValue].value = ChangeCellValue
                         print(f"{ActiveWorksheet[CellValue]} has been changed to {ChangeCellValue}")
+
                         File.save(Path)
+                        print("File saved.")
+
+                    case _:
+                        print("Invalid input. Returning to Menu Screen.")
+
+            case "R":
+                print("Testing conditional format function")
+                reapply_conditional_formatting(File.active)
 
 def changeSheet(ActiveWorksheet):
     File.active = File[ActiveWorksheet]

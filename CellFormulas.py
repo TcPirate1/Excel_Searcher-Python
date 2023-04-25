@@ -1,7 +1,8 @@
 from ColumnConverter import num_hash
 from path import File, Path
 import re
-from openpyxl.styles import Font, Alignment, NamedStyle
+from openpyxl.styles import Font, Alignment, NamedStyle, PatternFill
+from openpyxl.formatting.rule import Rule, CellIsRule
 
 def getInput(msg):
     return input(msg).upper()
@@ -31,7 +32,7 @@ def emptyCells(ActiveWorksheet):
     for row in range(1, ActiveWorksheet.max_row + 1):
         for column in range(1, ActiveWorksheet.max_column + 1):
             columnLetter = num_hash(column)
-            top = f"{columnLetter}1"
+            top = f"{num_hash(column)}1"
             searchTarget = f"{columnLetter}{row}"
             if (ActiveWorksheet[searchTarget].value is None and ActiveWorksheet[top].value == "Code"):
                 print(searchTarget)
@@ -44,26 +45,40 @@ def fillEmptyCell(ActiveWorksheet):
     cell_format.alignment = Alignment(horizontal='center')
     # Input location of cell and get the 2 cells next to them
     selected_cell = getInput("Choose the cell you want to write to:\n")
-    selected_cellRight1 = ActiveWorksheet[selected_cell].offset(row= 0, column = 1).coordinate
-    selected_cellRight2 = ActiveWorksheet[selected_cell].offset(row= 0, column = 2).coordinate
+    selectedCells = [selected_cell, ActiveWorksheet[selected_cell].offset(row=0, column=1).coordinate,
+                     ActiveWorksheet[selected_cell].offset(row=0, column=2).coordinate]
     # Input value for cell
-    change_value = getInput(f"Enter what you want to put in cell {selected_cell}:\n")
-    change_valueRight1 = getInput(f"Enter what you want to put in this cell {selected_cellRight1}:\n")
-    change_valueRight2 = getInput(f"Enter what you want to put in this cell {selected_cellRight2}:\n")
+    change_value = [getInput(f"Enter what you want to put in cell {cell}:\n") for cell in selectedCells]
     #Assign new value
-    ActiveWorksheet[selected_cell].value = change_value
-    ActiveWorksheet[selected_cellRight1].value = change_valueRight1
-    ActiveWorksheet[selected_cellRight2].value = change_valueRight2
+    for cell, value in zip(selectedCells, change_value):
+        ActiveWorksheet[cell].value = value
     #Add checker so that it adds style to workbook if it isn't avaliable (like for instance on another PC)
-    if 'apply_format' not in File:
+    try:
         File.add_named_style(cell_format)
+    except ValueError:
+        pass
     #Apply style to cell after knowing where the cell is
-    ActiveWorksheet[selected_cell].style = 'apply_format'
-    ActiveWorksheet[selected_cellRight1].style = 'apply_format'
-    ActiveWorksheet[selected_cellRight2].style = 'apply_format'
+    for cell in selectedCells:
+        ActiveWorksheet[cell].style = 'apply_format'
     # Sucessful output
-    print(f"\"{ActiveWorksheet[selected_cell].value}\", \"{ActiveWorksheet[selected_cellRight1].value}\", \"{ActiveWorksheet[selected_cellRight2].value}\" has successfully been inputted into the spreadsheet.")
+    print(f"\"{ActiveWorksheet[selectedCells[0]].value}\", \"{ActiveWorksheet[selectedCells[1]].value}\", \"{ActiveWorksheet[selectedCells[2]].value}\" has successfully been inputted into the spreadsheet.")
+    # Save file
     File.save(Path)
+    print("File saved.")
 
-def reapply_conditional_formatting(): ##Reapply conditional formatting rules after deleting values
-    pass
+def reapply_conditional_formatting(ActiveWorksheet): ##Reapply conditional formatting rules after deleting values
+    # TODO: Get current active sheet then reapply conditional formatting to the "Code" column.
+    #Color
+    duplicateColor = CellIsRule(operator='equal', formula=['1'], stopIfTrue=False, fill=PatternFill(bgColor="FFFF00"))
+    print(f"Current sheet is: {ActiveWorksheet}\n")
+    for rule in ActiveWorksheet.conditional_formatting._cf_rules:
+        print(rule.ruleType)
+        print(rule.sqref)
+        # if top cell is equal to "Code" then apply conditional formatting. Apply the conditional format to the whole column.
+        for cell in ActiveWorksheet[1]:
+            if (cell.value == "Code"):
+                code_cell = cell
+
+        if (code_cell):
+            letter = code_cell.column_letter
+            print(ActiveWorksheet.conditional_formatting.add(f"{letter}:{letter}", duplicateColor))
