@@ -11,12 +11,12 @@ def find_cardLocation(currentSheet, Card, searchType):
     cardNameRegex = re.match('^\d{1,2}-\d{3}[CRHLS]+$', Card)
     for row in range(1, currentSheet.max_row + 1):
         for column in range(1,currentSheet.max_column + 1): #columns
-            initialColumn = num_hash(column)
+            startColumn = num_hash(column)
             leftColumn = num_hash(column - 1)
             rightColumn = num_hash(column + 1)
             secondRightColumn = num_hash(column + 2)
-            searchTarget = f"{initialColumn}{row}"
-            pile = f"{initialColumn}2"
+            searchTarget = f"{startColumn}{row}"
+            pile = f"{startColumn}2"
             left_cell = f"{leftColumn}{row}"
             right_cell = f"{rightColumn}{row}"
             right_2Cells = f"{secondRightColumn}{row}"
@@ -31,9 +31,9 @@ def emptyCells(ActiveWorksheet):
     print("Checking for empty cells in this sheet...\n")
     for row in range(1, ActiveWorksheet.max_row + 1):
         for column in range(1, ActiveWorksheet.max_column + 1):
-            columnLetter = num_hash(column)
+            startColumn = num_hash(column)
             top = f"{num_hash(column)}1"
-            searchTarget = f"{columnLetter}{row}"
+            searchTarget = f"{startColumn}{row}"
             if (ActiveWorksheet[searchTarget].value is None and ActiveWorksheet[top].value == "Code"):
                 print(searchTarget)
 

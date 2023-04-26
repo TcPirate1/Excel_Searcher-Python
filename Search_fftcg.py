@@ -5,7 +5,7 @@ from path import File, Path
 def inputChoice():
     userContinue = True
     while userContinue == True:
-        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\n").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\n\"T\" to test the current function.").upper()
         match option:
             case "E":
                 break
@@ -75,7 +75,7 @@ def inputChoice():
                     case _:
                         print("Invalid input. Returning to Menu Screen.")
 
-            case "R":
+            case "T":
                 print("Testing conditional format function")
                 reapply_conditional_formatting(File.active)
 
