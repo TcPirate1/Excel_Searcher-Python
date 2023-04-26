@@ -8,7 +8,6 @@ def inputChoice():
         option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\n").upper()
         match option:
             case "E":
-                print("The program will now close.\nThank you for using this Python script!")
                 break
 
             case "S":
@@ -119,3 +118,4 @@ def findAnotherCard():
 #Entry
 print("Welcome to the FFTCG spreadsheet searcher!\n\nNote: This spreadsheet doesn't contain cards from opus 7 or 14 because all of the Commons and Rares were obtained from these sets.")
 inputChoice()
+print("The program will now close.\nThank you for using this Python script!")

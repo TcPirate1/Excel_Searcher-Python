@@ -2,7 +2,7 @@ from ColumnConverter import num_hash
 from path import File, Path
 import re
 from openpyxl.styles import Font, Alignment, NamedStyle, PatternFill
-from openpyxl.formatting.rule import Rule, CellIsRule
+from openpyxl.formatting.rule import CellIsRule, Rule
 
 def getInput(msg):
     return input(msg).upper()
@@ -69,16 +69,18 @@ def fillEmptyCell(ActiveWorksheet):
 def reapply_conditional_formatting(ActiveWorksheet): ##Reapply conditional formatting rules after deleting values
     # TODO: Get current active sheet then reapply conditional formatting to the "Code" column.
     #Color
-    duplicateColor = CellIsRule(operator='equal', formula=['1'], stopIfTrue=False, fill=PatternFill(bgColor="FFFF00"))
+    duplicateColor = CellIsRule(operator='equal', formula=['1'], fill=PatternFill(bgColor="FFFF00"))
     print(f"Current sheet is: {ActiveWorksheet}\n")
     for rule in ActiveWorksheet.conditional_formatting._cf_rules:
-        print(rule.ruleType)
-        print(rule.sqref)
+        print(list(rule))
+        rule = Rule(type='DuplicateValues', dxf=duplicateColor, stopIfTrue=True, formula=['1'])
+        # print(rule.sqref)
         # if top cell is equal to "Code" then apply conditional formatting. Apply the conditional format to the whole column.
-        for cell in ActiveWorksheet[1]:
-            if (cell.value == "Code"):
-                code_cell = cell
-
-        if (code_cell):
-            letter = code_cell.column_letter
-            print(ActiveWorksheet.conditional_formatting.add(f"{letter}:{letter}", duplicateColor))
+        for column in range(1, ActiveWorksheet.max_column + 1):
+            code_cell = f"{num_hash(column)}1"
+            if (ActiveWorksheet[code_cell].value == "Code"):
+                print(code_cell)
+                letter = code_cell.column_letter
+                ActiveWorksheet.conditional_formatting.add(f"{letter}:{letter}", rule)
+                # print(f"Conditional formatting has been reapplied to the \"Code\" column of {ActiveWorksheet}.")
+                # break
