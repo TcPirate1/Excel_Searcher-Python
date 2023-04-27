@@ -5,7 +5,7 @@ from path import File, Path
 def inputChoice():
     userContinue = True
     while userContinue == True:
-        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\n\"T\" to test the current function.").upper()
+        option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\"A\" to add a new worksheet to the workbook.\n\"F\" to fill an empty cell on a worksheet.\n\n\"V\" will show empty cells in the \"Code\" column.\n\"C\" to change the value of a cell or delete a cell.\n\"T\" to test the current function.\n\n").upper()
         match option:
             case "E":
                 break
@@ -118,4 +118,4 @@ def findAnotherCard():
 #Entry
 print("Welcome to the FFTCG spreadsheet searcher!\n\nNote: This spreadsheet doesn't contain cards from opus 7 or 14 because all of the Commons and Rares were obtained from these sets.")
 inputChoice()
-print("The program will now close.\nThank you for using this Python script!")
+print("\nThe program will now close.\nThank you for using this Python script!")
