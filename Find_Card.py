@@ -1,6 +1,7 @@
 from path import SheetNames, File
 from CellFormulas import find_cardLocation, getInput
 
+hash_table = {}
 def find_card(codeORname):
     Card = ""
     searchType = ""
@@ -16,7 +17,7 @@ def find_card(codeORname):
 
     for sheet in SheetNames:
         currentSheet = DisplayCurrentSheet(sheet)
-        find_cardLocation(currentSheet, Card, searchType)
+        find_cardLocation(currentSheet, Card, searchType, hash_table)
 
 def DisplayCurrentSheet(sheet):
     print(f"\nCurrent sheet is: {sheet}\n")
