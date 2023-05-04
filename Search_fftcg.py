@@ -6,15 +6,9 @@ def inputChoice():
     while userContinue == True:
         option = input("\nPress one of the following keys to execute their respective functions.\n\nOptions:\n\"E\" to exit the program.\n\"S\" to search for a card.\n\n").upper()
         if (option == "E"):
-            print("The program will now close.\nThank you for using this Python script!")
             break
         if (option == "S"):
             cardFinder()
-
-def changeSheet(ActiveWorksheet):
-    File.active = File[ActiveWorksheet]
-    print(f"Current sheet has been changed to: {ActiveWorksheet}")
-    return ActiveWorksheet
 
 def cardFinder():
     invalid_input = True
@@ -50,3 +44,4 @@ def findAnotherCard():
 #Variables / Entry
 print("Welcome to the FFTCG spreadsheet searcher!\n\nNote: This spreadsheet doesn't contain cards from opus 7 or 14 because all of the Commons and Rares were obtained from these sets.")
 inputChoice()
+print("The program will now close.\nThank you for using this Python script!")
