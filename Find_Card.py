@@ -1,20 +1,22 @@
 from path import SheetNames, File
-from CellFormulas import find_cardLocation
+from CellFormulas import find_cardLocation, getInput
 
 def find_card(codeORname):
-    if (codeORname == "N"):
-        Card = input("Enter the name of the card you wish to find: ").upper() # Search result is Case sensitive 
+    Card = ""
+    searchType = ""
+    #initialize with empty strings then assign respective values to eliminate extra for loop
 
-        for sheet in SheetNames:
-            currentSheet = DisplayCurrentSheet(sheet)
-            find_cardLocation(currentSheet, Card)
+    if (codeORname == "N"):
+        Card = getInput("Enter the name of the card you wish to find: ") # Search result is Case sensitive
+        searchType = "name"
 
     if (codeORname == "C"):
-        Card = input("Enter the code of the card you wish to find: ").upper() # Search result is Case sensitive
+        Card = getInput("Enter the code of the card you wish to find: ") # Search result is Case sensitive
+        searchType = "code"
 
-        for sheet in SheetNames:
-            currentSheet = DisplayCurrentSheet(sheet)
-            find_cardLocation(currentSheet, Card)
+    for sheet in SheetNames:
+        currentSheet = DisplayCurrentSheet(sheet)
+        find_cardLocation(currentSheet, Card, searchType)
 
 def DisplayCurrentSheet(sheet):
     print(f"\nCurrent sheet is: {sheet}\n")

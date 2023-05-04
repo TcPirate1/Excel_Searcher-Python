@@ -2,6 +2,9 @@ from ColumnConverter import num_hash
 import re
 import time
 
+def getInput(msg):
+    return input(msg).upper()
+
 def find_cardLocation(currentSheet, Card, searchType):
     s_time = time.time()
     cardNameRegex = re.match('^\d{1,2}-\d{3}[CRHLS]+$', Card)
